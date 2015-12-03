@@ -45,6 +45,8 @@ module Fog
       model :process
       model :cdrom
       collection :cdroms
+      model :rule
+      collection :rules
 
       request_path 'fog/vsphere/requests/compute'
       request :current_time
@@ -104,6 +106,9 @@ module Fog
       request :list_processes
       request :folder_destroy
       request :upload_iso
+      request :create_rule
+      request :list_rules
+      request :destroy_rule
 
       module Shared
         attr_reader :vsphere_is_vcenter

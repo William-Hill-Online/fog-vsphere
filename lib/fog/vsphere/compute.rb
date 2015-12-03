@@ -104,8 +104,8 @@ module Fog
       request :list_child_snapshots
       request :revert_to_snapshot
       request :list_processes
-      request :folder_destroy
       request :upload_iso
+      request :folder_destroy
       request :create_rule
       request :list_rules
       request :destroy_rule

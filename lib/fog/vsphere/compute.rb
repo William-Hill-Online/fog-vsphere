@@ -487,6 +487,29 @@ module Fog
                                              :ssl  => @vsphere_ssl,
                                              :insecure => bad_cert,
                                              :debug => @vsphere_debug
+              
+              # Create a shadow class to change the behaviour of @connection.obj2xml
+              # so that xsd:any types are converted to xsd:int (and not xsd:long).
+              #
+              # This is a known issue with RbVmomi.
+              #
+              # See https://communities.vmware.com/message/2505334 for discussion
+              # and https://github.com/rlane/rbvmomi/pull/30 for an unmerged
+              # pull request that fixes it in RbVmomi.
+              #
+              class <<@connection
+                def obj2xml xml, name, type, is_array, o, attrs={}
+                  case o
+                  when Integer
+                    attrs['xsi:type'] = 'xsd:int' if type(type) == RbVmomi::BasicTypes::AnyType
+                    xml.tag! name, o.to_s, attrs
+                    xml
+                  else
+                    super xml, name, type, is_array, o, attrs
+                  end
+                end
+              end
+                                             
               break
             rescue OpenSSL::SSL::SSLError
               raise if bad_cert

@@ -406,7 +406,18 @@ module Fog
                                   :klass => "RbVmomi::VIM::ComputeResource"}
                    ]
                  }
-                ]
+               ],
+               :rules => {
+                 'anti-affinity-foo' => {
+                   :datacenter => 'Solutions',
+                   :cluster => 'Solutionscluster',
+                   :key => 4242,
+                   :name => 'anti-affinity-foo',
+                   :enabled => true,
+                   :type => RbVmomi::VIM::ClusterAntiAffinityRuleSpec,
+                   :vm_ids => ['5032c8a5-9c5e-ba7a-3804-832a03e16381', '502916a3-b42e-17c7-43ce-b3206e9524dc']
+                 }
+               }
             }
           end
         end

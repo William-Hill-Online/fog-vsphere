@@ -34,6 +34,13 @@ module Fog
         end
         
       end
+      class Mock
+        def create_rule(attributes={})
+          attributes[:key] = rand(9999)
+          self.data[:rules][attributes[:name]] = attributes
+          attributes[:key]
+        end
+      end
     end
   end
 end

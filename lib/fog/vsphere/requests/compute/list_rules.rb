@@ -21,6 +21,11 @@ module Fog
           }
         end
       end
+      class Mock
+        def list_rules(filters = {})
+          self.data[:rules].values.select {|r| r[:datacenter] == filters[:datacenter] && r[:cluster] == filters[:cluster]}
+        end
+      end
     end
   end
 end

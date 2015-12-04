@@ -15,6 +15,13 @@ module Fog
           cluster.ReconfigureComputeResource_Task(spec: delete_spec, modify: true).wait_for_completion
         end
       end
+      class Mock
+        def destroy_rule(attributes = {})
+          rule = self.data[:rules][attributes[:name]]
+          raise Fog::Vsphere::Error::NotFound unless rule
+          self.data[:rules].delete(attributes[:name])
+        end
+      end
     end
   end
 end

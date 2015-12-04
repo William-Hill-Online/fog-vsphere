@@ -5,10 +5,11 @@ module Fog
         autoload :Rule, File.expand_path('../rule', __FILE__)
         
         model Fog::Compute::Vsphere::Rule
-        attr_accessor :datacenter
-        attr_accessor :cluster
+        attribute :datacenter
+        attribute :cluster
         
         def all(filters = {})
+          requires :datacenter, :cluster
           load service.list_rules(:datacenter => datacenter, :cluster => cluster)
         end
         
@@ -19,6 +20,7 @@ module Fog
         
         # Pass datacenter/cluster to every new rule
         def new(attributes={})
+          requires :datacenter, :cluster
           super(attributes.merge(datacenter: datacenter, cluster: cluster))
         end
 

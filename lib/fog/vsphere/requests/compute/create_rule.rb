@@ -8,7 +8,7 @@ module Fog
           # (otherwise ESX just happily accepts it and then considers it a conflict)
           rule = cluster.configurationEx.rule.find {|n| n[:name] == attributes[:name]}
           if rule
-              raise ArgumentError, "Rule #{attributes[:name]} already exists!"
+            raise ArgumentError, "Rule #{attributes[:name]} already exists!"
           end
           # First, create the rulespec
           vms = attributes[:vm_ids].to_a.map {|id| get_vm_ref(id, attributes[:datacenter])}

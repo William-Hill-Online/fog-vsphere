@@ -27,9 +27,9 @@ module Fog
           ret = cluster.ReconfigureComputeResource_Task(spec: cluster_spec, modify: true).wait_for_completion
           rule = cluster.configurationEx.rule.find {|n| n[:name] == attributes[:name]}
           if rule
-              return rule[:key]
+            return rule[:key]
           else
-              raise Fog::Vsphere::Errors::ServiceError, "Unknown error creating rule #{attributes[:name]}"
+            raise Fog::Vsphere::Errors::ServiceError, "Unknown error creating rule #{attributes[:name]}"
           end
         end
         

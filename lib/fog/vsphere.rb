@@ -1,9 +1,11 @@
 require 'fog/core'
 
 module Fog
-  module Vsphere
-    autoload :Compute, File.expand_path('../vsphere/compute', __FILE__)
+  module Compute
+    autoload :Vsphere, File.expand_path('../vsphere/compute.rb', __FILE__)
+  end
 
+  module Vsphere
     extend Fog::Provider
 
     module Errors
